@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { assets, facilityIcons, roomsDummyData } from '../assets/assets'
+import { assets, facilityIcons} from '../assets/assets'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import StarRating from '../components/StarRating'
 import { useAppContext } from '../context/AppContext'
@@ -168,7 +168,7 @@ const AllRooms = () => {
             <p className='text-base font-medium text-gray-800'>FILTERS</p>
             <div className='text-xs cursor-pointer'>
                 <span onClick={()=> setOpenFilters(!openFilters)} className='lg:hidden'>{openFilters ? 'HIDE' : 'SHOW'}</span>
-                <span className='hidden lg:block'>CLEAR</span>
+                <span onClick={clearFilter} className='hidden lg:block'>CLEAR</span>
             </div>
         </div>
 
