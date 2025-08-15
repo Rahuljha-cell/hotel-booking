@@ -3,7 +3,7 @@ import transporter from "../config/nodemailer.js";
 import Booking from "../models/Bookings.js"
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
-import stripe from "stripe";
+import Stripe from 'stripe';
 
 
 
