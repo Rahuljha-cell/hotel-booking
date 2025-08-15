@@ -9,12 +9,15 @@ import hotelRouter from "./routes/hotelRoutes.js";
 import connectCloudinary from "./config/cloudinary.js";
 import roomRouter from "./routes/roomRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
+import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
 
-connectDB()
-connectCloudinary();
+
+
 const app = express()
 app.use(cors())//Enable Cross-origin Resource Sharing
 
+//API to listen to stripe Webhooks
+app.post('api/stripe', express.raw({type: "application/json"}), stripeWebhooks)
 //Middleware
 app.use(express.json())
 app.use(clerkMiddleware())
@@ -28,6 +31,12 @@ app.use('/api/hotels', hotelRouter)
 app.use('/api/rooms', roomRouter)
 app.use('/api/bookings', bookingRouter)
 
-const PORT = process.env.PORT || 3000;
+const startServer = async () => {
+  await connectDB();  // <-- Wait for DB connection before starting server
+  connectCloudinary();
 
-app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+};
+
+startServer();
